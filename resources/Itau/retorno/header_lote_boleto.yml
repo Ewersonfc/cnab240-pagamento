@@ -1,0 +1,111 @@
+#baseado na documentação do BANCO ITAÚ S/A
+#REGISTRO HEADER DE LOTE
+#Liquidação de títulos (bloquetos) em cobrança no Itaú e em outros Bancos
+codigo_banco:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '341'
+codigo_lote:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: ''
+tipo_registro:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '1'
+tipo_operacao:
+  pos: [9, 9]
+  picture: 'X(01)'
+  default: 'C'
+tipo_pagamento:
+  pos: [10, 11]
+  picture: '9(02)'
+  default: ''
+forma_pagamento:
+  pos: [12, 13]
+  picture: '9(02)'
+  default: ''
+layout_lote:
+  pos: [14, 16]
+  picture: '9(03)'
+  default: '030'
+brancos01:
+  pos: [17, 17]
+  picture: 'X(01)'
+  default: ''
+empresa_inscricao:
+  pos: [18, 18]
+  picture: '9(01)'
+  default: '2'
+inscricao_numero:
+  pos: [19, 32]
+  picture: '9(14)'
+  default: '00000000000000'
+brancos02:
+  pos: [33, 52]
+  picture: 'X(20)'
+  default: ''
+agencia:
+  pos: [53, 57]
+  picture: '9(05)'
+  default: ''
+brancos03:
+  pos: [58, 58]
+  picture: 'X(01)'
+  default: ''
+conta:
+  pos: [59, 70]
+  picture: '9(12)'
+  default: ''
+brancos04:
+  pos: [71, 71]
+  picture: 'X(01)'
+  default: ''
+dac:
+  pos: [72, 72]
+  picture: '9(01)'
+  default: ''
+nome_empresa:
+  pos: [73, 102]
+  picture: 'X(30)'
+  default: ''
+finalidade_lote:
+  pos: [103, 132]
+  picture: 'X(30)'
+  default: ''
+historico_cc:
+  pos: [133, 142]
+  picture: 'X(10)'
+  default: ''
+endereco_empresa:
+  pos: [143, 172]
+  picture: 'X(30)'
+  default: ''
+numero:
+  pos: [173, 177]
+  picture: '9(05)'
+  date_format: ''
+complemento:
+  pos: [178, 192]
+  picture: 'X(15)'
+  default: ''
+cidade:
+  pos: [193, 212]
+  picture: 'X(20)'
+  default: ''
+cep:
+  pos: [213, 220]
+  picture: '9(08)'
+  default: ''
+estado:
+  pos: [221, 222]
+  picture: 'X(02)'
+  default: ''
+brancos06:
+  pos: [223, 230]
+  picture: 'X(08)'
+  default: ''
+ocorrencias:
+  pos: [231, 240]
+  picture: 'X(10)'
+  default: ''

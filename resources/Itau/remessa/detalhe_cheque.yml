@@ -1,0 +1,119 @@
+#baseado na documentação do BANCO ITAÚ S/A
+#REGISTRO DETALHE SEGMENTO A - OBRIGATÓRIO
+#Pagamentos através de cheque, OP, DOC, TED e crédito em conta corrente
+codigo_banco:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '341'
+codigo_lote:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: ''
+tipo_registro:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '3'
+numero_registro:
+  pos: [9, 13]
+  picture: '9(05)'
+  default: ''
+segmento:
+  pos: [14, 14]
+  picture: 'X(01)'
+  default: 'A'
+tipo_movimento:
+  pos: [15, 17]
+  picture: '9(03)'
+  default: ''
+camara:
+  pos: [18, 20]
+  picture: '9(03)'
+  default: ''
+banco_favorecido:
+  pos: [21, 23]
+  picture: '9(03)'
+  default: ''
+agencia_conta:
+  pos: [24, 43]
+  picture: 'X(20)'
+  default: ''
+nome_favorecido:
+  pos: [44, 73]
+  picture: 'X(30)'
+  default: ''
+seu_numero:
+  pos: [74, 93]
+  picture: 'X(20)'
+  default: ''
+data_pagto:
+  pos: [94, 101]
+  picture: '9(08)'
+  date_format: '%d%m%Y'
+moeda_tipo:
+  pos: [102, 104]
+  picture: 'X(03)'
+  default: 'REA'
+codigo_ispb:
+  pos: [105, 112]
+  picture: '9(08)'
+  default: ''
+zeros:
+  pos: [113, 119]
+  picture: '9(07)'
+  default: '0000000'
+valor_pagto:
+  pos: [120, 134]
+  picture: '9(15)'
+  default: ''
+nosso_numero:
+  pos: [135, 149]
+  picture: 'X(15)'
+  default: ''
+brancos01:
+  pos: [150, 154]
+  picture: 'X(05)'
+  default: ''
+data_efetiva:
+  pos: [155, 162]
+  picture: '9(08)'
+  date_format: '%d%m%Y'
+valor_efetivo:
+  pos: [163, 177]
+  picture: '9(15)'
+  default: ''
+finalidade_detalhe:
+  pos: [178, 195]
+  picture: 'X(18)'
+  default: ''
+brancos02:
+  pos: [196, 197]
+  picture: 'X(02)'
+  default: ''
+numero_documento:
+  pos: [198, 203]
+  picture: '9(06)'
+  date_format: ''
+numero_inscricao:
+  pos: [204, 217]
+  picture: '9(14)'
+  default: ''
+finalidade_doc:
+  pos: [218, 219]
+  picture: 'X(02)'
+  default: ''
+finalidade_ted:
+  pos: [220, 224]
+  picture: 'X(05)'
+  default: ''
+brancos03:
+  pos: [225, 229]
+  picture: 'X(05)'
+  default: ''
+aviso:
+  pos: [230, 230]
+  picture: 'X(01)'
+  default: ''
+ocorrencias:
+  pos: [231, 240]
+  picture: 'X(10)'
+  default: ''

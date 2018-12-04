@@ -2,6 +2,8 @@
 
 namespace Ewersonfc\CNAB240Pagamento\Responses;
 
+use Carbon\Carbon;
+
 class FileResponse
 {
     private $codigoBanco;
@@ -15,7 +17,7 @@ class FileResponse
     private $dv;
     private $vencimento;
     private $valor;
-    private $cmapoLivre;
+    private $campoLivre;
     private $nomeFavorecido;
     private $dataVencto;
     private $valorTitulo;
@@ -31,6 +33,50 @@ class FileResponse
     private $aprovado;
     private $tipoAprovacao;
     private $rejeicao;
+
+
+    //Metodos seguindo a nomenclatura do Safra, para padronização
+
+    public function getOperacao() {
+        $tmp = str_split($this->getOcorrencias(), 2);
+        $trimmed = array_filter(array_map('trim', $tmp));
+
+        if($trimmed[0] == "00")
+            return "L";
+
+        if($trimmed[0] == "BD")
+            return "C";
+
+        return false;
+    }
+
+    //Limpa espaços em branco e 00 e BD, mantendo apenas rejeições
+    public function getRejeicao() {
+        $tmp = str_split($this->getOcorrencias(), 2);
+        $tmp_trimmed = array_filter(array_map('trim', $tmp));
+        $tmp_cleaned = array_diff($tmp_trimmed, ['00','BD']);
+        return $tmp_cleaned;
+    }
+
+    public function getCompromisso() {
+        return $this->getSeuNumero();
+    }
+
+    public function getOcorrencia() {
+        return $this->getOcorrencias();
+    }
+
+    public function getValorCompromisso() {
+        return $this->getValorTitulo();
+    }
+
+    public function getDataVencimento() {
+        $dateBase = Carbon::parse('1997-10-07');
+        $dateBase->addDays($tmp = $this->getVencimento())->format('Y-m-d');
+
+        return $dateBase;
+    }
+
 
 
     /**
@@ -256,19 +302,19 @@ class FileResponse
     /**
      * @return mixed
      */
-    public function getCmapoLivre()
+    public function getCampoLivre()
     {
-        return $this->cmapoLivre;
+        return $this->campoLivre;
     }
 
     /**
-     * @param mixed $cmapoLivre
+     * @param mixed $campoLivre
      *
      * @return self
      */
-    public function setCmapoLivre($cmapoLivre)
+    public function setCampoLivre($campoLivre)
     {
-        $this->cmapoLivre = $cmapoLivre;
+        $this->campoLivre = $campoLivre;
 
         return $this;
     }
@@ -481,6 +527,7 @@ class FileResponse
         return $this->ocorrencias;
     }
 
+
     /**
      * @param mixed $ocorrencias
      *
@@ -536,10 +583,10 @@ class FileResponse
     /**
      * @return mixed
      */
-    public function getRejeicao()
-    {
-        return $this->rejeicao;
-    }
+    // public function getRejeicao()
+    // {
+    //     return $this->rejeicao;
+    // }
 
     /**
      * @param mixed $rejeicao

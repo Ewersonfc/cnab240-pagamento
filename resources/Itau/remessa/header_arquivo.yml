@@ -75,7 +75,7 @@ data_geracao:
 hora_geracao:
   pos: [152, 157]
   picture: '9(06)'
-  default: '%h%i%s'
+  default: '115959'
 zeros:
   pos: [158, 166]
   picture: '9(09)'

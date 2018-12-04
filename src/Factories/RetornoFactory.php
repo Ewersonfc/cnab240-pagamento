@@ -52,9 +52,9 @@ class RetornoFactory
             $approved = false;
             $fileResponse = new FileResponse;
 
-            $operacao = substr($detail['ocorrencias']['value'], 0, 2)
+            $operacao = substr($detail['ocorrencias']['value'], 0, 2);
 
-            if( $operacao == '00' OR $operacao == 'BD') 
+            if( $operacao == '00' || $operacao == 'BD') 
                 $approved = true;
 
             //CONSIDERAR SE CONVERTO O 00 E BD PARA "LIQUIDACAO" E "CONFIRMAÇÃO" PARA FICAR IGUAL AO SAFRA

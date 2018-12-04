@@ -14,12 +14,12 @@ class TipoRetorno
     /**
      * @var
      */
-    const CONFIRMACAO_REJEICAO = 'confirmacao_rejeicao';
+    const CONFIRMACAO_REJEICAO = 'boleto';
 
     /**
      * @var
      */
-    const LIQUIDACAO = 'liquidacao';
+    const LIQUIDACAO = 'boleto';
 
     /**
      * @var

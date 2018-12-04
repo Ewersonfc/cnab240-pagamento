@@ -117,7 +117,7 @@ class ServiceRetorno
     {
         $this->readFileData();
 
-        $header = array_shift($this->dataFile);
+        $header_lote = array_shift($this->dataFile);
         $headerLoteYml = $this->readHeaderLoteYml();
 
         $headerLoteComplete = [];
@@ -147,7 +147,7 @@ class ServiceRetorno
 
     private function matchDetailFileAndDetailData()
     {
-        $onlyDetails = array_slice($this->dataFile, 0, count(array_filter($this->dataFile)) - 1);
+        $onlyDetails = array_slice($this->dataFile, 1, count(array_filter($this->dataFile)) - 1);
         $detailComplete = [];
         foreach ($onlyDetails as $keyDetail => $detail) {
             $detailYml = $this->getTypeReturnByBank($detail);

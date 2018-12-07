@@ -1,0 +1,21 @@
+{
+    "name": "ewersonfc/cnab240-pagamento",
+    "description": "CNAB 240 Pagamento",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Neves da Silva",
+            "email": "carcaju@carcaju.com.br"
+        }
+    ],
+    "require": {
+        "symfony/yaml": "~2.0",
+        "mikehaertl/php-tmpfile": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ewersonfc\\CNAB240Pagamento\\": "src/"
+        }
+    }
+}

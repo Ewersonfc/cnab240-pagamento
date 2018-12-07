@@ -1,0 +1,99 @@
+#baseado na documentação do BANCO ITAÚ S/A
+#REGISTRO DETALHE SEGMENTO J - OBRIGATÓRIO
+#Liquidação de títulos (bloquetos) em cobrança no Itaú e em outros Bancos
+codigo_banco:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '341'
+codigo_lote:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: ''
+tipo_registro:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '3'
+numero_registro:
+  pos: [9, 13]
+  picture: '9(05)'
+  default: ''
+segmento:
+  pos: [14, 14]
+  picture: 'X(01)'
+  default: 'J'
+tipo_movimento:
+  pos: [15, 17]
+  picture: '9(03)'
+  default: ''
+banco_favorecido:
+  pos: [18, 20]
+  picture: '9(03)'
+  default: ''
+moeda:
+  pos: [21, 21]
+  picture: '9(01)'
+  default: ''
+dv:
+  pos: [22, 22]
+  picture: '9(01)'
+  default: ''
+vencimento:
+  pos: [23, 26]
+  picture: '9(04)'
+  default: ''
+valor:
+  pos: [27, 36]
+  picture: '9(10)'
+  default: ''
+campo_livre:
+  pos: [37, 61]
+  picture: '9(25)'
+  default: ''
+nome_favorecido:
+  pos: [62, 91]
+  picture: 'X(30)'
+  default: ''
+data_vencto:
+  pos: [92, 99]
+  picture: '9(08)'
+  date_format: '%d%m%Y'
+valor_titulo:
+  pos: [100, 114]
+  picture: '9(15)'
+  default: ''
+descontos:
+  pos: [115, 129]
+  picture: '9(15)'
+  date_format: ''
+acrescimos:
+  pos: [130, 144]
+  picture: '9(15)'
+  default: ''
+data_pagamento:
+  pos: [145, 152]
+  picture: '9(08)'
+  date_format: '%d%m%Y'
+valor_pagamento:
+  pos: [153, 167]
+  picture: '9(15)'
+  default: ''
+zeros:
+  pos: [168, 182]
+  picture: '9(15)'
+  default: ''
+seu_numero:
+  pos: [183, 202]
+  picture: 'X(20)'
+  default: ''
+brancos01:
+  pos: [203, 215]
+  picture: 'X(13)'
+  default: ''
+nosso_numero:
+  pos: [216, 230]
+  picture: 'X(15)'
+  default: ''
+ocorrencias:
+  pos: [231, 240]
+  picture: 'X(10)'
+  default: ''

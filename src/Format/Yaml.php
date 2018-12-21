@@ -85,20 +85,11 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
             case TipoTransacao::BOLETO:
                 $filename = "{$this->path}/detalhe_boleto.yml";
                 break;
-            case TipoTransacao::TRANSFERENCIA:
-                $filename = "{$this->path}/detalhe_transferencia.yml";
+            case TipoTransacao::BOLETOJ52:
+                $filename = "{$this->path}/detalhe_boletoJ52.yml";
                 break;
             case TipoTransacao::CHEQUE:
                 $filename = "{$this->path}/detalhe_cheque.yml";
-                break;
-            case TipoRetorno::CONFIRMACAO_REJEICAO:
-                $filename = "{$this->path}/confirmacao_rejeicao.yml";
-                break;
-            case TipoRetorno::LIQUIDACAO:
-                $filename = "{$this->path}/liquidacao.yml";
-                break;
-            case TipoRetorno::DDA:
-                $filename = "{$this->path}/NULL.yml";
                 break;
         }
 
@@ -112,7 +103,7 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
 
     public function readTrailerLote()
     {
-        $filename = "{$this->path}/trailer_boleto.yml";
+        $filename = "{$this->path}/trailer_lote_boleto.yml";
 
         if(!file_exists($filename))
             throw new HeaderYamlException("Arquivo de configuração trailer.yml não encontrado em: $this->path");

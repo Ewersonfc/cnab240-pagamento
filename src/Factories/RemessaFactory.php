@@ -74,7 +74,7 @@ class RemessaFactory
         $this->trailer_lote = $trailer_lote;
         $this->trailer_arquivo = $trailer_arquivo;
         $this->control_lote = 1;
-        $this->control_arquivo = 0;
+        $this->control_arquivo = 1;
         $this->valor_total_lote = 0;
     }
 
@@ -134,7 +134,7 @@ class RemessaFactory
         }
         unset($nameField, $fieldData, $arrayKeys, $lastField);
         $this->content .= PHP_EOL;
-        // $this->control_arquivo++;
+        $this->control_arquivo++;
     }
 
     /**
@@ -160,6 +160,7 @@ class RemessaFactory
         unset($nameField, $fieldData, $arrayKeys, $lastField);
         $this->content .= $header_lote . PHP_EOL;
         $this->control_arquivo++;
+        $this->control_lote++;
 
     }
 
@@ -179,7 +180,7 @@ class RemessaFactory
                 $arrayKeys = array_keys($data);
                 $lastField = end($arrayKeys) == $nameField?true:false;
 
-                if($nameField == 'numero_registro') {
+                if(($nameField == 'numero_registro') || ($nameField == 'numero_registro52')) {
                     $fieldData['value'] = $this->control_lote;
                     $this->control_lote++;
                     $this->control_arquivo++;
@@ -210,7 +211,7 @@ class RemessaFactory
 
             }
             unset($nameField, $fieldData, $arrayKeys, $lastField);
-            // $this->content .= $detail . PHP_EOL;
+            $this->content .= $detail;
         }
     }
 
@@ -228,7 +229,7 @@ class RemessaFactory
             $lastField = end($arrayKeys) == $nameField?true:false;
 
             if($nameField == 'total_qtd_registros') {
-                $fieldData['value'] = $this->control_lote-1;
+                $fieldData['value'] = $this->control_lote;
             }
 
             if($nameField == 'total_valor_pagtos') {
@@ -242,7 +243,7 @@ class RemessaFactory
         }
         unset($nameField, $fieldData);
         $this->content .= $trailer_lote . PHP_EOL;
-        $this->control_lote = 1;
+        $this->control_lote = 0;
         $this->valor_total_lote = 0;
         $this->control_arquivo++;
     }

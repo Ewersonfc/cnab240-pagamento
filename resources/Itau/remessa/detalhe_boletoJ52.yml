@@ -1,0 +1,71 @@
+#baseado na documentação do BANCO ITAÚ S/A
+#REGISTRO DETALHE SEGMENTO J52 - OBRIGATÓRIO
+#Liquidação de títulos (bloquetos) em cobrança no Itaú e em outros Bancos
+codigo_banco52:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '341'
+codigo_lote52:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: ''
+tipo_registro52:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '3'
+numero_registro52:
+  pos: [9, 13]
+  picture: '9(05)'
+  default: ''
+segmento52:
+  pos: [14, 14]
+  picture: 'X(01)'
+  default: 'J'
+tipo_movimento52:
+  pos: [15, 17]
+  picture: '9(03)'
+  default: ''
+codigo_registro52:
+  pos: [18, 19]
+  picture: '9(02)'
+  default: '52'
+tipo_inscricao_pagador52:
+  pos: [20, 20]
+  picture: '9(01)'
+  default: ''
+numero_inscricao_pagador52:
+  pos: [21, 35]
+  picture: '9(15)'
+  default: ''
+nome_pagador52:
+  pos: [36, 75]
+  picture: 'X(40)'
+  default: ''
+tipo_inscricao_beneficiario52:
+  pos: [76, 76]
+  picture: '9(01)'
+  default: ''
+numero_inscricao_beneficiario52:
+  pos: [77, 91]
+  picture: '9(15)'
+  default: ''
+nome_beneficiario52:
+  pos: [92, 131]
+  picture: 'X(40)'
+  default: ''
+tipo_inscricao_sacador52:
+  pos: [132, 132]
+  picture: '9(01)'
+  default: ''
+numero_inscricao_sacador52:
+  pos: [133, 147]
+  picture: '9(15)'
+  default: ''
+nome_sacador52:
+  pos: [148, 187]
+  picture: 'X(40)'
+  date_format: ''
+brancos0152:
+  pos: [188, 240]
+  picture: 'X(53)'
+  default: ''

@@ -16,6 +16,7 @@ class TipoTransacao
      * @var 'boleto'
      */
     const BOLETO = 'boleto';
+    const BOLETOJ52 = 'boletoJ52';
 
     /**
      * @var 'cheque'

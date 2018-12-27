@@ -73,8 +73,8 @@ class RemessaFactory
         $this->detail = $detail;
         $this->trailer_lote = $trailer_lote;
         $this->trailer_arquivo = $trailer_arquivo;
-        $this->control_lote = 1;
-        $this->control_arquivo = 1;
+        $this->control_lote = 0;
+        $this->control_arquivo = 0;
         $this->valor_total_lote = 0;
     }
 
@@ -86,6 +86,7 @@ class RemessaFactory
      */
     private function makeField(array $fieldData, $nameField, $lastField = false)
     {
+
         $valueDefined = null;
         if(preg_match('/branco/', $nameField)) {
             $valueDefined = ' ';
@@ -159,6 +160,7 @@ class RemessaFactory
         unset($nameField, $fieldData, $arrayKeys, $lastField);
         $this->content .= $header_lote . PHP_EOL;
         $this->control_arquivo++;
+        $this->control_lote++;
 
     }
 
@@ -167,20 +169,26 @@ class RemessaFactory
      */
     private function makeDetail()
     {
-        if(!array_key_exists("0", $this->detail))
-            throw new LayoutException("Lista de detalhes está inválida.");
+        // if(!array_key_exists("0", $this->detail))
+        //     throw new LayoutException("Lista de detalhes está inválida.");
 
         foreach($this->detail as $keyDetail => $data) {
             $detail = null;
+
             foreach($data as $nameField => $fieldData) {
 
                 $arrayKeys = array_keys($data);
                 $lastField = end($arrayKeys) == $nameField?true:false;
 
-                if($nameField == 'numero_registro') {
+                if(($nameField == 'numero_registro') || ($nameField == 'numero_registro52')) {
                     $fieldData['value'] = $this->control_lote;
                     $this->control_lote++;
                     $this->control_arquivo++;
+                }
+
+
+                if($nameField == 'numero_registro52') {
+                    $fieldData['value'] = $this->control_lote-1;
                 }
 
                 if($nameField == 'valor_pagamento') {
@@ -189,11 +197,21 @@ class RemessaFactory
 
                 $detail .= $this->makeField($fieldData, $nameField, $lastField);
                 $message = "O Campo {$nameField} deve conter caracteres neste padrão: {$fieldData['picture']}";
-                if(strlen($detail) > $fieldData['pos'][1])
+                if(strlen($detail) > $fieldData['pos'][1]) {
                     throw new LayoutException($message);
+                }
+
+                //SE A ULTIMA POSIÇÃO FOR MAIOR QUE 240, QUEBRA LINHA E JOGA RESTANTE DOS DADOS PARA BAIXO
+                if($fieldData['pos'][1] >= 240) {
+                    $this->content .= $detail . PHP_EOL;
+                    $detail = null;
+                }
+
+
+
             }
             unset($nameField, $fieldData, $arrayKeys, $lastField);
-            $this->content .= $detail . PHP_EOL;
+            $this->content .= $detail;
         }
     }
 
@@ -211,7 +229,7 @@ class RemessaFactory
             $lastField = end($arrayKeys) == $nameField?true:false;
 
             if($nameField == 'total_qtd_registros') {
-                $fieldData['value'] = $this->control_lote-1;
+                $fieldData['value'] = $this->control_lote+1;
             }
 
             if($nameField == 'total_valor_pagtos') {
@@ -225,7 +243,7 @@ class RemessaFactory
         }
         unset($nameField, $fieldData);
         $this->content .= $trailer_lote . PHP_EOL;
-        $this->control_lote = 1;
+        $this->control_lote = 0;
         $this->valor_total_lote = 0;
         $this->control_arquivo++;
     }
@@ -244,7 +262,7 @@ class RemessaFactory
             $lastField = end($arrayKeys) == $nameField?true:false;
 
             if($nameField == 'total_qtd_registros') {
-                $fieldData['value'] = $this->control_arquivo;
+                $fieldData['value'] = $this->control_arquivo+1;
             }
 
             $trailer_arquivo .= $this->makeField($fieldData, $nameField, $lastField);
@@ -268,7 +286,7 @@ class RemessaFactory
         $this->makeTrailerArquivo();
 
         try {
-            $file = new File($this->content, '.txt', 'itau_');
+            $file = new File($this->content, '.txt');
             $file->delete = false;
         } catch(\Exception $e) {
             throw new CNAB240PagamentoException("Não foi possível baixar o arquivo.");

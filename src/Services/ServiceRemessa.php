@@ -160,10 +160,14 @@ class ServiceRemessa
             throw new CNAB240PagamentoException("O array de detalhes está inválido, consulte a documentação.");
 
         $detailMadeByYmlStructure = [];
+
         foreach($dataFile->detail as $key => $data) {
             /**
              * Load layout of detail
              */
+            
+            $tipo_transacao = $data['tipo_transacao'];
+
             if(!in_array($data['tipo_transacao'], $this->typeOfPayments()))
                 throw new LayoutException("Tipo de pagamento inválido ou não informado.");
 
@@ -176,12 +180,34 @@ class ServiceRemessa
 
             foreach($data as $field => $value) {
                 $messageErro = "Chave passada no Detail [array] difere do arquivo de configuração yml: {$field}";
-                if(!array_key_exists($field, $ymlDetailToArray))
+                if(!array_key_exists($field, $ymlDetailToArray)) {
+                    continue;
                     throw new CNAB240PagamentoException($messageErro);
+                }
 
                 $ymlDetailToArray[$field]['value'] = $value;
             }
-            $detailMadeByYmlStructure[] = $ymlDetailToArray;
+            $detailMadeByYmlStructure[$key] = $ymlDetailToArray;
+
+            //BANCO ITAU NECESSITA DETALHE EM 2 LINHAS (DETALHE J E J52)
+            //AQUI FAREMOS A CHAMADA PARA A SEGUNDA LINHA J52
+            //É USADO O MESMO ARRAY POIS HÁ VÁRIOS CAMPOS IGUAIS
+
+            if($tipo_transacao == TipoTransacao::BOLETO && $this->banco['codigo_banco'] == 341) {
+                $ymlDetailToArray52 = $this->readDetailYml(TipoTransacao::BOLETOJ52);
+
+                foreach($data as $field => $value) {
+                    $messageErro = "Chave passada no Detail [array] difere do arquivo de configuração yml: {$field}";
+                    if(!array_key_exists($field, $ymlDetailToArray52)) {
+                        continue;
+                        throw new CNAB240PagamentoException($messageErro);
+                    }
+
+                    $ymlDetailToArray52[$field]['value'] = $value;
+                }
+                $detailMadeByYmlStructure[$key] = array_merge($ymlDetailToArray, $ymlDetailToArray52);
+            }
+
         }
 
         return $detailMadeByYmlStructure;

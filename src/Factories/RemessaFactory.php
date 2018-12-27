@@ -73,8 +73,8 @@ class RemessaFactory
         $this->detail = $detail;
         $this->trailer_lote = $trailer_lote;
         $this->trailer_arquivo = $trailer_arquivo;
-        $this->control_lote = 1;
-        $this->control_arquivo = 1;
+        $this->control_lote = 0;
+        $this->control_arquivo = 0;
         $this->valor_total_lote = 0;
     }
 
@@ -229,7 +229,7 @@ class RemessaFactory
             $lastField = end($arrayKeys) == $nameField?true:false;
 
             if($nameField == 'total_qtd_registros') {
-                $fieldData['value'] = $this->control_lote;
+                $fieldData['value'] = $this->control_lote+1;
             }
 
             if($nameField == 'total_valor_pagtos') {
@@ -262,7 +262,7 @@ class RemessaFactory
             $lastField = end($arrayKeys) == $nameField?true:false;
 
             if($nameField == 'total_qtd_registros') {
-                $fieldData['value'] = $this->control_arquivo;
+                $fieldData['value'] = $this->control_arquivo+1;
             }
 
             $trailer_arquivo .= $this->makeField($fieldData, $nameField, $lastField);
@@ -286,7 +286,7 @@ class RemessaFactory
         $this->makeTrailerArquivo();
 
         try {
-            $file = new File($this->content, '.txt', 'itau_');
+            $file = new File($this->content, '.txt');
             $file->delete = false;
         } catch(\Exception $e) {
             throw new CNAB240PagamentoException("Não foi possível baixar o arquivo.");

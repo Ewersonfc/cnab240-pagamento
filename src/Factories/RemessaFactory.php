@@ -133,7 +133,7 @@ class RemessaFactory
                 throw new LayoutException($message);
         }
         unset($nameField, $fieldData, $arrayKeys, $lastField);
-        $this->content .= PHP_EOL;
+        $this->content .= "\r\n";
         $this->control_arquivo++;
     }
 
@@ -158,7 +158,7 @@ class RemessaFactory
                 throw new LayoutException($message);
         }
         unset($nameField, $fieldData, $arrayKeys, $lastField);
-        $this->content .= $header_lote . PHP_EOL;
+        $this->content .= $header_lote . "\r\n";
         $this->control_arquivo++;
         $this->control_lote++;
 
@@ -203,7 +203,7 @@ class RemessaFactory
 
                 //SE A ULTIMA POSIÇÃO FOR MAIOR QUE 240, QUEBRA LINHA E JOGA RESTANTE DOS DADOS PARA BAIXO
                 if($fieldData['pos'][1] >= 240) {
-                    $this->content .= $detail . PHP_EOL;
+                    $this->content .= $detail . "\r\n";
                     $detail = null;
                 }
 
@@ -242,7 +242,7 @@ class RemessaFactory
                 throw new LayoutException("O Campo {$nameField} deve conter caracteres neste padrão: {$fieldData['picture']}");
         }
         unset($nameField, $fieldData);
-        $this->content .= $trailer_lote . PHP_EOL;
+        $this->content .= $trailer_lote . "\r\n";
         $this->control_lote = 0;
         $this->valor_total_lote = 0;
         $this->control_arquivo++;
@@ -271,7 +271,7 @@ class RemessaFactory
                 throw new LayoutException("O Campo {$nameField} deve conter caracteres neste padrão: {$fieldData['picture']}");
         }
         unset($nameField, $fieldData);
-        $this->content .= $trailer_arquivo;
+        $this->content .= $trailer_arquivo."\r\n\r\n";
     }
 
     /**

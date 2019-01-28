@@ -18,7 +18,7 @@ use Ewersonfc\CNAB240Pagamento\Bancos;
 
 /**
  * Class Yaml
- * @package CNAB240Pagamento\Format
+ * @package Ewersonfc\CNAB240Pagamento\Format
  */
 class Yaml extends \Symfony\Component\Yaml\Yaml
 {

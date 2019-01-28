@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: ewerson
@@ -103,11 +102,12 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
         return $this->validateLayout();
     }
 
-    public function readTrailerLote()
+    public function readTrailerLote($banco)
     {
-        if (Bancos::ITAU) {
+
+        if ($banco['codigo_banco'] == Bancos::ITAU) {
             $filename = "{$this->path}/trailer_lote_boleto.yml";
-        } elseif (Bancos::BANCODOBRASIL) {
+        } elseif ( $banco['codigo_banco'] == Bancos::BANCODOBRASIL) {
             $filename = "{$this->path}/trailer_lote.yml";
         }
 

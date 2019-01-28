@@ -76,7 +76,7 @@ class ServiceRemessa
      */
     private function readTrailerLoteYml()
     {
-        return $this->yaml->readTrailerLote();
+        return $this->yaml->readTrailerLote($this->banco);
     }
 
     /**
@@ -157,17 +157,16 @@ class ServiceRemessa
      */
     private function matchDetailFileAndDetailData(DataFile $dataFile)
     {
-
-        if (!array_key_exists("0", $dataFile->detail))
+        if(!array_key_exists("0", $dataFile->detail))
             throw new CNAB240PagamentoException("O array de detalhes está inválido, consulte a documentação.");
 
         $detailMadeByYmlStructure = [];
 
         foreach($dataFile->detail as $key => $data) {
+
             /**
              * Load layout of detail
              */
-
             $tipo_transacao = $data['tipo_transacao'];
 
             if(!in_array($data['tipo_transacao'], $this->typeOfPayments()))
@@ -182,15 +181,15 @@ class ServiceRemessa
 
             foreach($data as $field => $value) {
                 $messageErro = "Chave passada no Detail [array] difere do arquivo de configuração yml: {$field}";
-                if(!array_key_exists($field, $ymlDetailToArray)) { 
+                if(!array_key_exists($field, $ymlDetailToArray)) {
                     continue;
                     throw new CNAB240PagamentoException($messageErro);
                 }
 
                 $ymlDetailToArray[$field]['value'] = $value;
             }
-            $detailMadeByYmlStructure[$key] = $ymlDetailToArray; 
-
+            $detailMadeByYmlStructure[$key] = $ymlDetailToArray;
+ 
             //BANCO ITAU/BANCO DO BRASIL NECESSITA DETALHE EM 2 LINHAS (DETALHE J E J52)
             //AQUI FAREMOS A CHAMADA PARA A SEGUNDA LINHA J52
             //É USADO O MESMO ARRAY POIS HÁ VÁRIOS CAMPOS IGUAIS

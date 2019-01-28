@@ -18,7 +18,7 @@ class Bancos
      * @var integer|341
      */
     const ITAU = 341;
-    const BANCODOBRASIL = 001;
+    const BANCODOBRASIL = 1;
 
     /**
      * @param int $banco

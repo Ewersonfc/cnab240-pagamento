@@ -83,7 +83,7 @@ digito_conta_agencia:
   default: '0'
 nome_empresa:
   pos: [73, 102]
-  picture: 'X(10)'
+  picture: 'X(30)'
   default: ''
 brancos04:
   pos: [103, 142]

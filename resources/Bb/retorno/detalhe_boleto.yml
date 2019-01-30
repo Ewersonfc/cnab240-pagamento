@@ -1,3 +1,87 @@
 #Baseado na documentação do BANCO DO BRASIL
 #SEGMENTO - J
 #Registro detalhe segmento J
+codigo_banco:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '001'
+codigo_lote:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: '0000'
+tipo_registro:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '3'
+numero_registro:
+  pos: [9, 13]
+  picture: '9(05)'
+  default: '00001'
+codigo_segmento:
+  pos: [14, 14]
+  picture: 'X(01)'
+  default: 'J'
+tipo_movimento:
+  pos: [15, 15]
+  picture: '9(01)'
+  default: ''
+codigo_movimento:
+  pos: [16, 17]
+  picture: '9(02)'
+  default: ''
+codigo_barras:
+  pos: [18, 61]
+  picture: '9(44)'
+  default: ''
+nome_favorecido:
+  pos: [62, 91]
+  picture: 'X(30)'
+  default: ''
+data_vencimento:
+  pos: [92, 99]
+  picture: '9(08)'
+  default: 'DDMMAAAA'
+valor_titulo:
+  pos: [100, 114]
+  picture: '9(15)'
+  default: ''
+desconto:
+  pos: [115, 129]
+  picture: '9(15)'
+  default: ''
+acrescimos:
+  pos: [130, 144]
+  picture: '9(15)'
+  default: ''
+data_pagamento:
+  pos: [145, 152]
+  picture: '9(08)'
+  default: ''
+valor_pagamento:
+  pos: [153, 167]
+  picture: '9(15)'
+  default: ''
+quantidade_moeda:
+  pos: [168, 182]
+  picture: '9(15)'
+  default: '000000000000000'
+numero_empresa:
+  pos: [183, 202]
+  picture: 'X(20)'
+  default: ''
+numero_banco:
+  pos: [203, 222]
+  picture: 'X(20)'
+  default: ''
+codigo_moeda: 
+  pos: [223, 224]
+  picture: '9(02)'
+  default: '09'
+brancos01:
+  pos: [225, 230]
+  picture: 'X(06)'
+  default: ' '
+ocorrencias:
+  pos: [231, 240]
+  picture: 'X(10)'
+  default: ''

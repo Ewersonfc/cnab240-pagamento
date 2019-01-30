@@ -39,4 +39,4 @@ brancos02:
 ocorrencias:
   pos: [231, 240]
   picture: 'X(10)'
-  default: ''
+  default: '0000000000'

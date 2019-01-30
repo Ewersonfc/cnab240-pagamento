@@ -18,6 +18,7 @@ class Bancos
      * @var integer|341
      */
     const ITAU = 341;
+    const BANCODOBRASIL = 1;
 
     /**
      * @param int $banco
@@ -34,6 +35,15 @@ class Bancos
                     'path_remessa' => realpath(dirname(__FILE__)."/../resources/Itau/remessa"),
                     'path_retorno' => realpath(dirname(__FILE__)."/../resources/Itau/retorno")
                 ];
+                break;
+            case self::BANCODOBRASIL:
+                return [
+                    'codigo_banco' => '001',
+                    'nome_banco' => 'BANCODOBRASIL',
+                    'path_remessa' => realpath(dirname(__FILE__) . "/../resources/Bb/remessa"),
+                    'path_retorno' => realpath(dirname(__FILE__) . "/../resources/Bb/retorno")
+                ];
+                break;
             default:
                 throw new CNAB240PagamentoException("Banco não encontrado.");
                 break;

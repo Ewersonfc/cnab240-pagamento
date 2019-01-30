@@ -13,6 +13,7 @@ use Ewersonfc\CNAB240Pagamento\Exceptions\CNAB240PagamentoException;
 use Ewersonfc\CNAB240Pagamento\Exceptions\LayoutException;
 use Ewersonfc\CNAB240Pagamento\Factories\RemessaFactory;
 use Ewersonfc\CNAB240Pagamento\Format\Yaml;
+use Ewersonfc\CNAB240Pagamento\Bancos;
 
 /**
  * Class ServiceRemessa
@@ -75,7 +76,7 @@ class ServiceRemessa
      */
     private function readTrailerLoteYml()
     {
-        return $this->yaml->readTrailerLote();
+        return $this->yaml->readTrailerLote($this->banco);
     }
 
     /**
@@ -162,10 +163,10 @@ class ServiceRemessa
         $detailMadeByYmlStructure = [];
 
         foreach($dataFile->detail as $key => $data) {
+
             /**
              * Load layout of detail
              */
-            
             $tipo_transacao = $data['tipo_transacao'];
 
             if(!in_array($data['tipo_transacao'], $this->typeOfPayments()))
@@ -174,9 +175,9 @@ class ServiceRemessa
             $ymlDetailToArray = $this->readDetailYml($data['tipo_transacao']);
 
             /**
-             * Delete key
-             */
-            unset($data['tipo_transacao']);
+            * Delete key
+            */
+            unset($tipo_transacao);
 
             foreach($data as $field => $value) {
                 $messageErro = "Chave passada no Detail [array] difere do arquivo de configuração yml: {$field}";
@@ -188,12 +189,12 @@ class ServiceRemessa
                 $ymlDetailToArray[$field]['value'] = $value;
             }
             $detailMadeByYmlStructure[$key] = $ymlDetailToArray;
-
-            //BANCO ITAU NECESSITA DETALHE EM 2 LINHAS (DETALHE J E J52)
+ 
+            //BANCO ITAU/BANCO DO BRASIL NECESSITA DETALHE EM 2 LINHAS (DETALHE J E J52)
             //AQUI FAREMOS A CHAMADA PARA A SEGUNDA LINHA J52
             //É USADO O MESMO ARRAY POIS HÁ VÁRIOS CAMPOS IGUAIS
 
-            if($tipo_transacao == TipoTransacao::BOLETO && $this->banco['codigo_banco'] == 341) {
+            if ($data['tipo_transacao'] == TipoTransacao::BOLETO && ($this->banco['codigo_banco'] == Bancos::ITAU || $this->banco['codigo_banco'] == Bancos::BANCODOBRASIL)) {
                 $ymlDetailToArray52 = $this->readDetailYml(TipoTransacao::BOLETOJ52);
 
                 foreach($data as $field => $value) {

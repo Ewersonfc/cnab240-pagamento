@@ -39,7 +39,7 @@ codigo_convenio:
   default: '0126'
 brancos02:
   pos: [46, 50]
-  picture: 'X(04)'
+  picture: 'X(05)'
   default: ' '
 arquivo_teste:
   pos: [51, 52]
@@ -110,6 +110,10 @@ reservado_empresa:
   picture: 'X(20)'
   default: ''
 brancos05:
+  pos: [212, 222]
+  picture: 'X(12)'
+  default: ' '
+brancos06:
   pos: [223, 225]
   picture: 'X(03)'
   default: ' '

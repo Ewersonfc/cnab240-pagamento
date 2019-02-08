@@ -28,7 +28,7 @@ brancos0152:
 codigo_movimento52:
   pos: [16, 17]
   picture: '9(02)'
-  default: ''
+  default: '00'
 codigo_registro52:
  pos: [18, 19]
  picture: '9(02)'

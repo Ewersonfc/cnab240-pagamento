@@ -268,7 +268,8 @@ class ServiceRemessa
             $matchHeaderLote, 
             $matchDetail, 
             $matchTrailerLote,
-            $matchTrailerArquivo);
+            $matchTrailerArquivo,
+            $this->banco);
         return $remessaFactory->generateFile();
     }
 }

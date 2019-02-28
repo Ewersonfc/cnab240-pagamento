@@ -3,7 +3,7 @@
 codigo_banco:
   pos: [1, 3]
   picture: '9(03)'
-  default: ''
+  default: '001'
 codigo_lote:
   pos: [4, 7]
   picture: '9(04)'

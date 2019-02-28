@@ -6,6 +6,7 @@ use Ewersonfc\CNAB240Pagamento\Exceptions\CNAB240PagamentoException;
 use Ewersonfc\CNAB240Pagamento\Exceptions\LayoutException;
 use Ewersonfc\CNAB240Pagamento\Helpers\CNAB240Helper;
 use mikehaertl\tmp\File;
+use Ewersonfc\CNAB240Pagamento\Bancos;
 
 /**
  * Class RemessaFactory
@@ -59,6 +60,11 @@ class RemessaFactory
     private $valor_total_lote;
 
     /**
+     * @var integer
+     */
+    private $banco;
+
+    /**
      * RemessaFactory constructor.
      * @param array $header_arquivo
      * @param array $header_lote
@@ -66,8 +72,9 @@ class RemessaFactory
      * @param array $header_lote
      * @param array $header_arquivo
      */
-    function __construct(array $header_arquivo, array $header_lote, array $detail, array $trailer_lote, array $trailer_arquivo)
+    function __construct(array $header_arquivo, array $header_lote, array $detail, array $trailer_lote, array $trailer_arquivo, $banco)
     {
+        $this->banco = $banco;
         $this->header_arquivo = $header_arquivo;
         $this->header_lote = $header_lote;
         $this->detail = $detail;
@@ -103,14 +110,26 @@ class RemessaFactory
         if(strlen($valueDefined) > $pictureData['firstQuantity'])
             throw new LayoutException("O Valor Passado no campo {$nameField} / {$valueDefined} está maior que os campos disponíveis ".$pictureData['firstQuantity']);
 
-        if($pictureData['firstType'] == 9)
-            return str_pad($valueDefined, $pictureData['firstQuantity'], "0", STR_PAD_LEFT);
+        if($pictureData['firstType'] == 9){
+            if ($this->banco['codigo_banco'] == Bancos::ITAU)
+                return str_pad($valueDefined, $pictureData['firstQuantity'], "0", STR_PAD_LEFT);
+            elseif ($this->banco['codigo_banco'] == Bancos::BANCODOBRASIL) 
+                return str_pad($valueDefined, $pictureData['firstQuantity'], "0", STR_PAD_RIGHT);
+        }
+
         if($pictureData['firstType'] == 'X') {
-            return str_pad(strtr(
+            if ($this->banco['codigo_banco'] == Bancos::ITAU) {
+                return str_pad(strtr(
                     utf8_decode($valueDefined),
                     utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY')
                 , $pictureData['firstQuantity'], " ", STR_PAD_LEFT);
 
+            } elseif ($this->banco['codigo_banco'] == Bancos::BANCODOBRASIL) {
+                return str_pad(strtr(
+                    utf8_decode($valueDefined),
+                    utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY')
+                , $pictureData['firstQuantity'], " ", STR_PAD_RIGHT);
+            }
         }
     }
 
@@ -271,7 +290,10 @@ class RemessaFactory
                 throw new LayoutException("O Campo {$nameField} deve conter caracteres neste padrão: {$fieldData['picture']}");
         }
         unset($nameField, $fieldData);
-        $this->content .= $trailer_arquivo."\r\n\r\n";
+        if ($this->banco['codigo_banco'] == Bancos::ITAU)
+            $this->content .= $trailer_arquivo."\r\n\r\n";
+        elseif($this->banco['codigo_banco'] == Bancos::BANCODOBRASIL)
+            $this->content .= $trailer_arquivo."\r\n";
     }
 
     /**

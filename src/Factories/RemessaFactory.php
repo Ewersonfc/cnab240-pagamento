@@ -110,12 +110,9 @@ class RemessaFactory
         if(strlen($valueDefined) > $pictureData['firstQuantity'])
             throw new LayoutException("O Valor Passado no campo {$nameField} / {$valueDefined} está maior que os campos disponíveis ".$pictureData['firstQuantity']);
 
-        if($pictureData['firstType'] == 9){
-            if ($this->banco['codigo_banco'] == Bancos::ITAU)
-                return str_pad($valueDefined, $pictureData['firstQuantity'], "0", STR_PAD_LEFT);
-            elseif ($this->banco['codigo_banco'] == Bancos::BANCODOBRASIL) 
-                return str_pad($valueDefined, $pictureData['firstQuantity'], "0", STR_PAD_RIGHT);
-        }
+        if($pictureData['firstType'] == 9)
+            return str_pad($valueDefined, $pictureData['firstQuantity'], "0", STR_PAD_LEFT);
+
 
         if($pictureData['firstType'] == 'X') {
             if ($this->banco['codigo_banco'] == Bancos::ITAU) {

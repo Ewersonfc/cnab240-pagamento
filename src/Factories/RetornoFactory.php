@@ -93,6 +93,52 @@ class RetornoFactory
         }
         return $response;
     }
+
+    public function generateBancodobrasilResponse()
+    {
+        $response = [];
+        foreach ($this->detail as $detail) {
+            $approved = false;
+            $fileResponse = new FileResponse;
+            $operacao = substr($detail['ocorrencias']['value'], 0, 2);
+
+            if( $operacao == '00' || $operacao == 'BD')
+                $approved = true;
+
+            //CONSIDERAR SE CONVERTO O 00 E BD PARA "LIQUIDACAO" E "CONFIRMAÇÃO" PARA FICAR IGUAL AO SAFRA
+
+            $fileResponse->setAprovado($approved);
+
+            $fileResponse->setTipoAprovacao($operacao);
+            if(!$approved) {
+                $fileResponse->setRejeicao($this->makeRejeicao($detail['ocorrencias']['value']));
+            }
+
+            $fileResponse->setCodigoBanco($detail['codigo_banco']['value']);
+            $fileResponse->setCodigoLote($detail['codigo_lote']['value']);
+            $fileResponse->setTipoRegistro($detail['tipo_registro']['value']);
+            $fileResponse->setNumeroRegistro($detail['numero_registro']['value']);
+            $fileResponse->setSegmento($detail['codigo_segmento']['value']);
+            $fileResponse->setTipoMovimento($detail['tipo_movimento']['value']);
+            $fileResponse->setBancoFavorecido($detail['nome_favorecido']['value']);
+            $fileResponse->setVencimento($detail['data_vencimento']['value']);
+            $fileResponse->setValor($detail['valor_titulo']['value']);
+            $fileResponse->setDataVencto($detail['data_vencimento']['value']);
+            $fileResponse->setValorTitulo($detail['valor_titulo']['value']);
+            $fileResponse->setDescontos($detail['desconto']['value']);
+            $fileResponse->setAcrescimos($detail['acrescimos']['value']);
+            $fileResponse->setDataPagamento($detail['data_pagamento']['value']);
+            $fileResponse->setValorPagamento($detail['valor_pagamento']['value']);
+            $fileResponse->setZeros($detail['quantidade_moeda']['value']);
+            $fileResponse->setSeuNumero($detail['numero_empresa']['value']);
+            $fileResponse->setNossoNumero($detail['numero_banco']['value']);
+            $fileResponse->setOcorrencias($detail['ocorrencias']['value']);
+
+            $response[] = $fileResponse;
+
+        }
+        return $response;
+    }
 }
 
 

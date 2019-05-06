@@ -120,12 +120,12 @@ brancos06:
 controle_vans:
   pos: [226, 228]
   picture: '9(03)'
-  default: '000'
+  default: ' '
 tipo_servico:
   pos: [229, 230]
   picture: '9(02)'
-  default: '00'
+  default: ' '
 ocorrencias:
   pos: [231, 240]
   picture: '9(10)'
-  default: '0000000000'
+  default: ' '

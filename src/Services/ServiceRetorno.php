@@ -9,6 +9,7 @@
 namespace Ewersonfc\CNAB240Pagamento\Services;
 
 use Ewersonfc\CNAB240Pagamento\Bancos;
+use Ewersonfc\CNAB240Pagamento\Exceptions\CNAB240PagamentoException;
 use Ewersonfc\CNAB240Pagamento\Exceptions\FileRetornoException;
 use Ewersonfc\CNAB240Pagamento\Factories\RetornoFactory;
 use Ewersonfc\CNAB240Pagamento\Format\Yaml;
@@ -135,13 +136,15 @@ class ServiceRetorno
         //ANALISAR DIREITO ESSA FUNÇÃO - ITAU NÃO TEM UM CAMPO ESPECÍFICO PARA O TIPO DE RETORNO (CONFIRMAÇÃO, LIQUIDAÇÃO, ETC)
         //TALVEZ TENHAMOS QUE ESQUECER ESSE TIPO DE TRATAMENTO
         //POR ENQUANTO, USAREI O CAMPO DE OCORRENCIA
-        switch ($this->banco['codigo_banco'])
-        {
+        switch ($this->banco['codigo_banco']) {
             case Bancos::ITAU:
                 return $this->readDetailYml(substr($detailCompletely, 231, 240));
-            break;
+                break;
+            case Bancos::BANCODOBRASIL:
+                return $this->readDetailYml(substr($detailCompletely, 231, 240));
+                break;
             default:
-                throw new \Exception("Não foi possivel toma danada");
+                throw new \Exception("Não foi encontrar o tipo de retorno");
         }
     }
 
@@ -173,13 +176,26 @@ class ServiceRetorno
         $detail = $this->matchDetailFileAndDetailData();
 
         $retornoFactory = new RetornoFactory($header_arquivo, $header_lote, $detail);
-        if($this->banco = Bancos::ITAU) {
-            $retorno = new DataFile;
-            $retorno->header_arquivo = $header_arquivo;
-            $retorno->header_lote = $header_lote;
-            $retorno->detail = $retornoFactory->generateItauResponse();
+        switch ($this->banco['codigo_banco']) {
+            case Bancos::ITAU:
+                $retorno = new DataFile;
+                $retorno->header_arquivo = $header_arquivo;
+                $retorno->header_lote = $header_lote;
+                $retorno->detail = $retornoFactory->generateItauResponse();
 
-            return $retorno;
+                return $retorno;
+                break;
+            case Bancos::BANCODOBRASIL:
+                $retorno = new DataFile;
+                $retorno->header_arquivo = $header_arquivo;
+                $retorno->header_lote = $header_lote;
+                $retorno->detail = $retornoFactory->generateBancodobrasilResponse();
+
+                return $retorno;
+                break;
+            default:
+                throw new CNAB240PagamentoException("Banco não encontrado.");
+                break;
         }
 
         return false;

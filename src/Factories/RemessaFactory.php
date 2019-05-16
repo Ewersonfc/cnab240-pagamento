@@ -244,8 +244,14 @@ class RemessaFactory
             $arrayKeys = array_keys($this->trailer_lote);
             $lastField = end($arrayKeys) == $nameField?true:false;
 
-            if($nameField == 'total_qtd_registros') {
-                $fieldData['value'] = $this->control_lote+1;
+            if($this->banco['codigo_banco'] == Bancos::ITAU){
+                if($nameField == 'total_qtd_registros') {
+                    $fieldData['value'] = $this->control_lote+1;
+                }
+            } elseif ($this->banco['codigo_banco'] == Bancos::BANCODOBRASIL){
+                if($nameField == 'total_qtd_registros') {
+                    $fieldData['value'] = $this->control_lote-1;
+                }
             }
 
             if($nameField == 'total_valor_pagtos') {

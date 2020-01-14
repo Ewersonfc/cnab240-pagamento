@@ -23,7 +23,7 @@ class HeaderYamlException extends CNAB240PagamentoException
      * @param int $code
      * @param Throwable|null $previous
      */
-    function __construct(string $message = "", int $code = 0, Throwable $previous = null)
+    function __construct($message = null, $code = null, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

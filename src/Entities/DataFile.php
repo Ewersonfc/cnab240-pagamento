@@ -1,40 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ewerson
- * Date: 27/07/18
- * Time: 15:12
- */
 namespace Ewersonfc\CNAB240Pagamento\Entities;
 
-/**
- * Class DataFile
- * @package Ewersonfc\CNAB240Pagamento\Entities
- */
 class DataFile
 {
-    /**
-     * @var
-     */
+    // Remessa trabalha de forma a fazer um lote por arquivo, retorno foi possibilitado multiplos lotes
+
     public $header_arquivo;
-
-    /**
-     * @var
-     */
-    public $header_lote;
-
-    /**
-     * @var array
-     */
+    // Retorno Param
+    public $lotes = [];
+    // Remessa Param
     public $detail = [];
-
-    /**
-     * @var
-     */
-    public $trailer_lote;
-
-    /**
-     * @var
-     */
     public $trailer_arquivo;
+
+    public function addLote(LoteEntity $lote)
+    {
+        $this->lotes[] = $lote;
+    }
 }

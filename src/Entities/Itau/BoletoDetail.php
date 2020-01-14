@@ -1,10 +1,11 @@
 <?php
 
-namespace Ewersonfc\CNAB240Pagamento\Responses;
+namespace Ewersonfc\CNAB240Pagamento\Entities\Itau;
 
 use Carbon\Carbon;
+use Ewersonfc\CNAB240Pagamento\Contracts\DetailContract;
 
-class FileResponse
+class BoletoDetail implements DetailContract
 {
     private $codigoBanco;
     private $codigoLote;
@@ -38,13 +39,12 @@ class FileResponse
     //Metodos seguindo a nomenclatura do Safra, para padronização
 
     public function getOperacao() {
-        $tmp = str_split($this->getOcorrencias(), 2);
-        $trimmed = array_filter(array_map('trim', $tmp));
+        $occurrences = $this->getOcorrencias();
 
-        if($trimmed[0] == "00")
+        if($occurrences[0] == "00")
             return "L";
 
-        if($trimmed[0] == "BD")
+        if($occurrences[0] == "BD")
             return "C";
 
         return false;
@@ -52,9 +52,8 @@ class FileResponse
 
     //Limpa espaços em branco e 00 e BD, mantendo apenas rejeições
     public function getRejeicao() {
-        $tmp = str_split($this->getOcorrencias(), 2);
-        $tmp_trimmed = array_filter(array_map('trim', $tmp));
-        $tmp_cleaned = array_diff($tmp_trimmed, ['00','BD']);
+        $occurrences = $this->getOcorrencias();
+        $tmp_cleaned = array_diff($occurrences, ['00','BD']);
         return $tmp_cleaned;
     }
 
@@ -535,8 +534,7 @@ class FileResponse
      */
     public function setOcorrencias($ocorrencias)
     {
-        $this->ocorrencias = $ocorrencias;
-
+        $this->ocorrencias = array_filter(array_map('trim', str_split($ocorrencias, 2)));
         return $this;
     }
 

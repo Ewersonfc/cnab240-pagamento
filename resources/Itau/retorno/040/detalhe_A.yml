@@ -61,7 +61,7 @@ zeros:
   pos: [113, 119]
   picture: '9(07)'
   default: '0000000'
-valor_pagto:
+valor_pagamento:
   pos: [120, 134]
   picture: '9(15)'
   default: ''

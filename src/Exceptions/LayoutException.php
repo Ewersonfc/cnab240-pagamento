@@ -21,7 +21,7 @@ class LayoutException extends CNAB240PagamentoException
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
+    public function __construct($message = null, $code = null, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

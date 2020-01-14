@@ -88,8 +88,8 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
             case TipoTransacao::BOLETOJ52:
                 $filename = "{$this->path}/detalhe_boletoJ52.yml";
                 break;
-            case TipoTransacao::CHEQUE:
-                $filename = "{$this->path}/detalhe_cheque.yml";
+            case TipoTransacao::TRANSFERENCIA:
+                $filename = "{$this->path}/detalhe_transferencia.yml";
                 break;
         }
 

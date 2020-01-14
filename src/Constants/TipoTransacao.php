@@ -17,15 +17,24 @@ class TipoTransacao
      */
     const BOLETO = 'boleto';
     const BOLETOJ52 = 'boletoJ52';
-
-    /**
-     * @var 'cheque'
-     */
-    const CHEQUE = 'cheque';
-
-    /**
-     * @var 'tranferencia'
-     * ESSE VALOR ENGLOBA TIPOS: TED, DOC E TRANFERENCIA ENTRE CONTAS
-     */
     const TRANSFERENCIA = 'transferencia';
+    const CHEQUE = 'transferencia';
+
+    public static function getPaymentTypes()
+    {
+        return [
+            TipoTransacao::BOLETO,
+            TipoTransacao::TRANSFERENCIA,
+            TipoTransacao::CHEQUE,
+        ];
+    }
+
+    public static function getFileSuffix($transactionType)
+    {
+        if (in_array($transactionType, [TipoTransacao::TRANSFERENCIA, TipoTransacao::CHEQUE])) {
+            return TipoTransacao::TRANSFERENCIA;
+        } else {
+            return TipoTransacao::BOLETO;
+        }
+    }
 }

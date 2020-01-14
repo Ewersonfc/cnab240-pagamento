@@ -18,7 +18,7 @@ use Ewersonfc\CNAB240Pagamento\Format\Yaml;
  * Class ServiceRemessa
  * @package Ewersonfc\CNAB240Pagamento\Services
  */
-class ServiceRemessa
+class RemessaService
 {
     /**
      * @var
@@ -94,8 +94,7 @@ class ServiceRemessa
     {
         return [
             TipoTransacao::BOLETO,
-            TipoTransacao::CHEQUE,
-            TipoTransacao::TRANSFERENCIA
+            TipoTransacao::TRANSFERENCIA,
         ];
     }
 

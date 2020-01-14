@@ -22,7 +22,7 @@ class CNAB240PagamentoException extends Exception
      * @param int $code
      * @param Throwable|null $previous
      */
-    function __construct(string $message = "", int $code = 0, Throwable $previous = null)
+    function __construct($message = null, $code = null, Throwable $previous = null)
     {
         if(!$message)
             $message = 'Não foi possível gerar arquivo de remessa.';
